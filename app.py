@@ -29,13 +29,13 @@ html, body, [class*="css"] {
 .stApp { background-color: #07090c; }
 
 /* Remove default streamlit padding */
-.block-container { padding-top: 1.5rem !important; padding-bottom: 2rem !important; }
+.block-container { padding-top: 1rem !important; padding-bottom: 1.5rem !important; max-width: 1400px !important; }
 
 /* Metric cards */
 div[data-testid="metric-container"] {
     background: #0f1318;
     border: 1px solid #1c2530;
-    padding: 20px 24px;
+    padding: 16px 20px 12px;
     border-radius: 2px;
 }
 div[data-testid="metric-container"] label {
@@ -46,9 +46,10 @@ div[data-testid="metric-container"] label {
     font-family: 'IBM Plex Mono', monospace !important;
 }
 div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-    font-size: 2.2rem !important;
+    font-size: 2.0rem !important;
     font-weight: 700 !important;
-    font-family: 'IBM Plex Mono', monospace !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    letter-spacing: 0 !important;
 }
 div[data-testid="metric-container"] [data-testid="stMetricDelta"] {
     font-size: 13px !important;
@@ -366,28 +367,40 @@ def hex_to_rgba(hex_color, alpha=0.12):
 
 def _base_layout(title=""):
     return dict(
-        title=dict(text=title, font=dict(size=11, color=CHART_TICK,
-                   family="IBM Plex Mono"), x=0.01, y=0.97),
+        title=dict(text=title, font=dict(size=10, color=CHART_TICK,
+                   family="IBM Plex Mono"), x=0.01, y=0.99),
         paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
-        margin=dict(l=40, r=12, t=30, b=40),
+        margin=dict(l=44, r=8, t=22, b=36),
         height=CHART_H,
-        xaxis=dict(gridcolor=CHART_GRID, tickfont=dict(size=9, color=CHART_TICK),
-                   tickangle=45),
+        xaxis=dict(gridcolor=CHART_GRID, tickfont=dict(size=8, color=CHART_TICK),
+                   tickangle=45, showgrid=False),
         yaxis=dict(gridcolor=CHART_GRID, tickfont=dict(size=9, color=CHART_TICK)),
         showlegend=False,
     )
 
 def line_chart(labels, values, color, title=""):
+    if not values:
+        return go.Figure()
+    pad = (max(values) - min(values)) * 0.15 or 0.5
+    ymin = min(values) - pad
+    ymax = max(values) + pad
     fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=labels, y=[ymin] * len(labels),
+        mode="lines", line=dict(width=0),
+        showlegend=False, hoverinfo="skip",
+    ))
     fig.add_trace(go.Scatter(
         x=labels, y=values,
         mode="lines+markers",
         line=dict(color=color, width=2),
-        marker=dict(size=4, color=color),
-        fill="tozeroy",
-        fillcolor=hex_to_rgba(color),
+        marker=dict(size=3, color=color),
+        fill="tonexty",
+        fillcolor=hex_to_rgba(color, 0.08),
     ))
-    fig.update_layout(**_base_layout(title))
+    layout = _base_layout(title)
+    layout["yaxis"]["range"] = [ymin, ymax]
+    fig.update_layout(**layout)
     return fig
 
 def bar_chart(labels, values, title=""):
@@ -648,11 +661,14 @@ def rev_card_html(r, prior_reported):
         arrow   = "▲" if delta > 0 else "▼"
         delta_html = f"<div class='rev-delta' style='color:{d_color}'>{arrow} {fmt_k(abs(delta))} vs prev rpt</div>"
         prior_html = f"<div class='rev-prior'>Prev: {fmt_k(prior)}</div>"
-    return f"""<div class="rev-card">
-      <div class="rev-month">{label}</div>
-      <div class="rev-val" style="color:{color}">{val_s}</div>
-      {prior_html}{delta_html}
-    </div>"""
+    inner = prior_html + delta_html
+    return (
+        f'<div class="rev-card">'
+        f'<div class="rev-month">{label}</div>'
+        f'<div class="rev-val" style="color:{color}">{val_s}</div>'
+        + inner +
+        '</div>'
+    )
 
 def signal_bars_html(components):
     html = ""
