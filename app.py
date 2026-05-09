@@ -359,6 +359,11 @@ CHART_GRID = "#1c2530"
 CHART_TICK = "#7a9ab5"
 CHART_H    = 200
 
+def hex_to_rgba(hex_color, alpha=0.12):
+    h = hex_color.lstrip("#")
+    r, g, b = int(h[0:2],16), int(h[2:4],16), int(h[4:6],16)
+    return f"rgba({r},{g},{b},{alpha})"
+
 def _base_layout(title=""):
     return dict(
         title=dict(text=title, font=dict(size=11, color=CHART_TICK,
@@ -380,7 +385,7 @@ def line_chart(labels, values, color, title=""):
         line=dict(color=color, width=2),
         marker=dict(size=4, color=color),
         fill="tozeroy",
-        fillcolor=color + "18",
+        fillcolor=hex_to_rgba(color),
     ))
     fig.update_layout(**_base_layout(title))
     return fig
