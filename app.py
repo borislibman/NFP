@@ -19,127 +19,144 @@ st.set_page_config(
 # ─────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 html, body, [class*="css"] {
-    font-family: 'IBM Plex Mono', monospace !important;
+    font-family: 'Inter', sans-serif !important;
     background-color: #07090c !important;
     color: #dde8f0 !important;
 }
 .stApp { background-color: #07090c; }
+.block-container { padding-top: 1.2rem !important; padding-bottom: 2rem !important; max-width: 1400px !important; }
 
-/* Remove default streamlit padding */
-.block-container { padding-top: 1rem !important; padding-bottom: 1.5rem !important; max-width: 1400px !important; }
-
-/* Metric cards */
+/* ── Metric cards ── */
 div[data-testid="metric-container"] {
     background: #0f1318;
     border: 1px solid #1c2530;
-    padding: 16px 20px 12px;
-    border-radius: 2px;
+    padding: 20px 24px 16px;
+    border-radius: 4px;
 }
 div[data-testid="metric-container"] label {
-    font-size: 10px !important;
-    letter-spacing: .18em;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: .12em !important;
     color: #7a9ab5 !important;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
     font-family: 'IBM Plex Mono', monospace !important;
 }
 div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-    font-size: 2.0rem !important;
+    font-size: 2.4rem !important;
     font-weight: 700 !important;
-    font-family: 'IBM Plex Sans', sans-serif !important;
-    letter-spacing: 0 !important;
+    font-family: 'Inter', sans-serif !important;
+    letter-spacing: -.01em !important;
+    color: #f0f6ff !important;
+    line-height: 1.1 !important;
 }
 div[data-testid="metric-container"] [data-testid="stMetricDelta"] {
     font-size: 13px !important;
     font-family: 'IBM Plex Mono', monospace !important;
+    margin-top: 4px !important;
 }
 
-/* Section headers */
+/* ── Section headers ── */
 .section-hdr {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: .22em;
-    color: #dde8f0;
+    letter-spacing: .28em;
+    color: #4a6a85;
     text-transform: uppercase;
-    border-bottom: 1px solid #243040;
+    border-bottom: 1px solid #1c2530;
     padding-bottom: 10px;
-    margin: 28px 0 16px;
+    margin: 32px 0 18px;
+    font-family: 'IBM Plex Mono', monospace;
 }
 
-/* Signal score card */
+/* ── Beat/miss badges ── */
+.badge-beat { color: #00e676; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+.badge-miss { color: #ff4560; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+.badge-line { color: #ffab00; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+
+/* ── Signal score ── */
 .sig-card {
     background: #0f1318;
     border: 1px solid #1c2530;
     padding: 24px 28px;
-    border-radius: 2px;
+    border-radius: 4px;
+    height: 100%;
 }
-.sig-score-big { font-size: 56px; font-weight: 700; line-height: 1; }
-.sig-label { font-size: 13px; font-weight: 700; letter-spacing: .2em; margin-top: 6px; }
-.sig-sub { font-size: 10px; color: #7a9ab5; margin-top: 4px; letter-spacing: .1em; }
-.sig-row {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 10px;
-}
-.sig-name { font-size: 11px; color: #7a9ab5; width: 130px; flex-shrink: 0; }
-.sig-bar-bg { background: #243040; height: 6px; border-radius: 3px; flex: 1; overflow: hidden; }
-.sig-bar-fill { height: 100%; border-radius: 3px; }
-.sig-pts { font-size: 12px; font-weight: 700; width: 42px; text-align: right; flex-shrink: 0; }
-.sig-detail { font-size: 11px; color: #7a9ab5; width: 110px; flex-shrink: 0; }
+.sig-score-big { font-size: 64px; font-weight: 700; line-height: 1; font-family: 'Inter', sans-serif; }
+.sig-label { font-size: 15px; font-weight: 700; letter-spacing: .15em; margin-top: 6px; font-family: 'IBM Plex Mono', monospace; }
+.sig-sub { font-size: 10px; color: #4a6a85; margin-top: 4px; letter-spacing: .12em; font-family: 'IBM Plex Mono', monospace; }
+.sig-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.sig-name { font-size: 12px; color: #7a9ab5; width: 120px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
+.sig-bar-bg { background: #1c2530; height: 7px; border-radius: 4px; flex: 1; overflow: hidden; }
+.sig-bar-fill { height: 100%; border-radius: 4px; }
+.sig-pts { font-size: 12px; font-weight: 600; width: 44px; text-align: right; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
+.sig-detail { font-size: 11px; color: #5a7a95; width: 120px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
 
-/* Breakdown rows */
+/* ── Breakdown rows ── */
 .brow {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 0; border-bottom: 1px solid #1c2530;
-    font-family: 'IBM Plex Mono', monospace;
+    padding: 10px 0; border-bottom: 1px solid #141c24;
 }
 .brow:last-child { border-bottom: none; }
-.bname { font-size: 13px; color: #7a9ab5; }
-.bval  { font-size: 16px; font-weight: 700; }
+.bname { font-size: 14px; color: #8aacca; font-family: 'Inter', sans-serif; }
+.bval  { font-size: 17px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
 
-/* Revision cards */
+/* ── Revision cards ── */
 .rev-card {
     background: #0f1318; border: 1px solid #1c2530;
-    padding: 18px 20px; border-radius: 2px;
+    padding: 20px 22px; border-radius: 4px;
 }
-.rev-month { font-size: 10px; font-weight: 600; letter-spacing: .15em;
-             color: #7a9ab5; text-transform: uppercase; margin-bottom: 10px; }
-.rev-val   { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
-.rev-prior { font-size: 12px; color: #7a9ab5; margin-bottom: 4px; }
-.rev-delta { font-size: 13px; font-weight: 700; }
+.rev-month { font-size: 10px; font-weight: 600; letter-spacing: .18em;
+             color: #4a6a85; text-transform: uppercase; margin-bottom: 12px;
+             font-family: 'IBM Plex Mono', monospace; }
+.rev-val   { font-size: 30px; font-weight: 700; margin-bottom: 8px;
+             font-family: 'Inter', sans-serif; }
+.rev-prior { font-size: 13px; color: #7a9ab5; margin-bottom: 5px; font-family: 'IBM Plex Mono', monospace; }
+.rev-delta { font-size: 14px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
 
-/* Commentary */
+/* ── Commentary ── */
 .commentary {
-    background: #131920;
-    border: 1px solid #243040;
+    background: #0c1017;
+    border: 1px solid #1c2530;
     border-left: 3px solid #00bcd4;
-    padding: 24px 28px;
-    border-radius: 0 2px 2px 0;
+    padding: 28px 36px;
+    border-radius: 0 4px 4px 0;
 }
 .commentary p {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 14px; line-height: 1.8; color: #dde8f0;
-    margin-bottom: 14px; padding-bottom: 14px;
-    border-bottom: 1px solid #1c2530;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.9;
+    color: #c8daea;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #141c24;
 }
 .commentary p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
 .commentary b { color: #00bcd4; font-weight: 600; }
 
-/* Beat/miss badges */
-.badge-beat { color: #00e676; font-weight: 700; font-size: 12px; letter-spacing: .05em; }
-.badge-miss { color: #ff4560; font-weight: 700; font-size: 12px; letter-spacing: .05em; }
-.badge-line { color: #ffab00; font-weight: 700; font-size: 12px; letter-spacing: .05em; }
-
-/* NFP banner */
+/* ── NFP banner ── */
 .nfp-banner {
     background: linear-gradient(90deg, #00bcd4, #0097a7);
-    color: #07090c; font-weight: 700; letter-spacing: .12em;
-    font-size: 13px; text-align: center; padding: 10px;
-    margin-bottom: 20px; text-transform: uppercase; border-radius: 2px;
+    color: #07090c; font-weight: 700; letter-spacing: .14em;
+    font-size: 13px; text-align: center; padding: 11px;
+    margin-bottom: 20px; text-transform: uppercase; border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
 }
 
-/* Hide streamlit branding */
+/* ── Breakdown card container ── */
+.bd-card {
+    background: #0f1318; border: 1px solid #1c2530;
+    padding: 22px 26px; border-radius: 4px; height: 100%;
+}
+.bd-title {
+    font-size: 10px; font-weight: 700; letter-spacing: .2em; color: #00bcd4;
+    text-transform: uppercase; margin-bottom: 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    border-bottom: 1px solid #1c2530; padding-bottom: 10px;
+}
+
 #MainMenu, footer, header { visibility: hidden; }
 </style>
 """, unsafe_allow_html=True)
@@ -725,15 +742,19 @@ if nfp_day:
 
 col_title, col_date = st.columns([3, 1])
 with col_title:
-    st.markdown("<div style='font-size:26px;font-weight:700;letter-spacing:.14em;"
-                "color:#00bcd4;text-transform:uppercase'>NFP Dashboard</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='font-size:30px;font-weight:700;letter-spacing:.08em;"
+        "color:#00bcd4;font-family:Inter,sans-serif;line-height:1'>NFP DASHBOARD</div>",
+        unsafe_allow_html=True)
 with col_date:
-    st.markdown(f"<div style='text-align:right;font-size:15px;font-weight:600'>"
-                f"{datetime.now().strftime('%B %d, %Y')}</div>"
-                f"<div style='text-align:right;font-size:12px;color:#7a9ab5'>"
-                f"{datetime.now().strftime('%I:%M %p')} ET</div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div style='text-align:right;font-size:16px;font-weight:600;font-family:Inter,sans-serif'>"
+        f"{datetime.now().strftime('%B %d, %Y')}</div>"
+        f"<div style='text-align:right;font-size:13px;color:#7a9ab5;font-family:IBM Plex Mono,monospace'>"
+        f"{datetime.now().strftime('%I:%M %p')} ET</div>",
+        unsafe_allow_html=True)
 
-st.markdown("<hr style='border-color:#243040;margin:16px 0 24px'>", unsafe_allow_html=True)
+st.markdown("<hr style='border-color:#1c2530;margin:14px 0 20px'>", unsafe_allow_html=True)
 
 # Load data
 with st.spinner("Fetching data from BLS API..."):
@@ -816,9 +837,11 @@ sig_l = signal_label(score)
 
 # Subtitle with signal badge
 st.markdown(
-    f"<div style='margin-bottom:4px;font-size:14px;color:#7a9ab5'>Employment Situation — {current_month}"
-    f"&nbsp;&nbsp;&nbsp;<span style='padding:3px 12px;border-radius:3px;font-size:11px;font-weight:700;"
-    f"letter-spacing:.15em;background:{sig_c}20;color:{sig_c};border:1px solid {sig_c}40'>"
+    f"<div style='margin-bottom:8px;font-size:20px;font-weight:600;color:#a0bdd0;font-family:Inter,sans-serif'>"
+    f"Employment Situation &mdash; {current_month}"
+    f"&nbsp;&nbsp;&nbsp;<span style='padding:4px 14px;border-radius:4px;font-size:12px;font-weight:700;"
+    f"letter-spacing:.12em;background:{sig_c}22;color:{sig_c};border:1px solid {sig_c}44;"
+    f"font-family:IBM Plex Mono,monospace'>"
     f"SIGNAL: {sig_l} {score}/100</span></div>",
     unsafe_allow_html=True)
 
@@ -855,6 +878,24 @@ with c5:
 with c6:
     st.metric("Government Payrolls", fmt_k(govt_mom),
               delta=None, delta_color="normal")
+
+# ── SECTION: Revisions (placed under headline) ────────
+st.markdown("<div class='section-hdr'>Prior Months — As Revised Today</div>", unsafe_allow_html=True)
+
+rev_cols = st.columns(4)
+for i, r in enumerate(revisions[:3]):
+    with rev_cols[i]:
+        st.markdown(rev_card_html(r, PRIOR_REPORTED), unsafe_allow_html=True)
+if len(revisions) >= 3:
+    net = sum(r["change"] for r in revisions[1:3])
+    with rev_cols[3]:
+        net_color = val_color(net)
+        st.markdown(
+            f'<div class="rev-card">'
+            f'<div class="rev-month">Net (2-mo)</div>'
+            f'<div class="rev-val" style="color:{net_color}">{fmt_k(net)}</div>'
+            f'<div class="rev-prior">&nbsp;</div></div>',
+            unsafe_allow_html=True)
 
 # ── SECTION: Expanded Indicators ──────────────────────
 st.markdown("<div class='section-hdr'>Expanded Labor Market Indicators</div>", unsafe_allow_html=True)
@@ -935,58 +976,36 @@ with tc5:
 # ── SECTION: Breakdown ─────────────────────────────────
 st.markdown("<div class='section-hdr'>Breakdown</div>", unsafe_allow_html=True)
 
+industry_rows = [
+    ("Healthcare",           healthcare_mom),
+    ("Social Assistance",    social_mom),
+    ("Retail Trade",         retail_mom),
+    ("Transport & Whse",     transport_mom),
+    ("Construction",         construction_mom),
+    ("Leisure & Hosp",       leisure_mom),
+    ("Prof & Biz Svcs",      prof_mom),
+    ("Financial Activities", financial_mom),
+    ("Information",          info_mom),
+]
+
 bc1, bc2, bc3 = st.columns(3)
 with bc1:
-    st.markdown(f"""<div class="breakdown-card" style="background:#0f1318;border:1px solid #1c2530;padding:20px 24px">
-      <div class="btitle" style="font-size:11px;font-weight:700;letter-spacing:.18em;color:#00bcd4;
-           text-transform:uppercase;margin-bottom:16px">Government Detail</div>
-      {brow_html([("Federal", fmt_k(federal_mom), federal_mom),
-                  ("State",   fmt_k(state_mom),   state_mom),
-                  ("Local",   fmt_k(local_mom),   local_mom)])}
-    </div>""", unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="bd-card"><div class="bd-title">Industry Contributors</div>'
+        f'{brow_html([(n, fmt_k(v), v) for n, v in industry_rows])}</div>',
+        unsafe_allow_html=True)
 with bc2:
-    st.markdown(f"""<div class="breakdown-card" style="background:#0f1318;border:1px solid #1c2530;padding:20px 24px">
-      <div class="btitle" style="font-size:11px;font-weight:700;letter-spacing:.18em;color:#00bcd4;
-           text-transform:uppercase;margin-bottom:16px">Manufacturing</div>
-      {brow_html([("Total Mfg",       fmt_k(mfg_mom),        mfg_mom),
-                  ("Durable Goods",   fmt_k(durable_mom),    durable_mom),
-                  ("Nondurable Goods",fmt_k(nondurable_mom), nondurable_mom)])}
-    </div>""", unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="bd-card"><div class="bd-title">Manufacturing</div>'
+        f'{brow_html([("Total Mfg", fmt_k(mfg_mom), mfg_mom), ("Durable Goods", fmt_k(durable_mom), durable_mom), ("Nondurable Goods", fmt_k(nondurable_mom), nondurable_mom)])}</div>',
+        unsafe_allow_html=True)
 with bc3:
-    industry_rows = [
-        ("Healthcare",           healthcare_mom),
-        ("Social Assistance",    social_mom),
-        ("Retail Trade",         retail_mom),
-        ("Transport & Whse",     transport_mom),
-        ("Construction",         construction_mom),
-        ("Leisure & Hosp",       leisure_mom),
-        ("Prof & Biz Svcs",      prof_mom),
-        ("Financial Activities", financial_mom),
-        ("Information",          info_mom),
-    ]
-    st.markdown(f"""<div class="breakdown-card" style="background:#0f1318;border:1px solid #1c2530;padding:20px 24px">
-      <div class="btitle" style="font-size:11px;font-weight:700;letter-spacing:.18em;color:#00bcd4;
-           text-transform:uppercase;margin-bottom:16px">Industry Contributors</div>
-      {brow_html([(n, fmt_k(v), v) for n, v in industry_rows])}
-    </div>""", unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="bd-card"><div class="bd-title">Government Detail</div>'
+        f'{brow_html([("Federal", fmt_k(federal_mom), federal_mom), ("State", fmt_k(state_mom), state_mom), ("Local", fmt_k(local_mom), local_mom)])}</div>',
+        unsafe_allow_html=True)
 
-# ── SECTION: Revisions ─────────────────────────────────
-st.markdown("<div class='section-hdr'>Prior Months — As Revised Today</div>",
-            unsafe_allow_html=True)
 
-rev_cols = st.columns(4)
-for i, r in enumerate(revisions[:3]):
-    with rev_cols[i]:
-        st.markdown(rev_card_html(r, PRIOR_REPORTED), unsafe_allow_html=True)
-if len(revisions) >= 3:
-    net = sum(r["change"] for r in revisions[1:3])
-    with rev_cols[3]:
-        net_color = val_color(net)
-        st.markdown(f"""<div class="rev-card">
-          <div class="rev-month">Net (2-mo)</div>
-          <div class="rev-val" style="color:{net_color}">{fmt_k(net)}</div>
-          <div class="rev-prior">&nbsp;</div>
-        </div>""", unsafe_allow_html=True)
 
 # ── SECTION: Commentary ────────────────────────────────
 st.markdown("<div class='section-hdr'>Commentary</div>", unsafe_allow_html=True)
