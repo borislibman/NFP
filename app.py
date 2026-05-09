@@ -114,33 +114,43 @@ div[data-testid="metric-container"] [data-testid="stMetricDelta"] {
     background: #1e222d;
     border: 1px solid #2a2e39;
     border-left: 2px solid #2962ff;
-    padding: 20px 26px 20px 22px;
+    padding: 6px 0;
     border-radius: 0 4px 4px 0;
 }
-.commentary ul {
-    list-style: none;
-    margin: 0; padding: 0;
+.cblock {
+    padding: 16px 24px;
+    border-bottom: 1px solid #2a2e39;
 }
-.commentary li {
+.cblock:last-child { border-bottom: none; }
+.cblock-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #5a8fc4;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+.cblock-body {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
-    line-height: 1.75;
+    line-height: 1.8;
     color: #b2b5be;
-    padding: 12px 0 12px 18px;
-    border-bottom: 1px solid #2a2e39;
+}
+.cblock-body ul {
+    list-style: none;
+    margin: 4px 0 0; padding: 0;
+}
+.cblock-body li {
+    padding: 3px 0 3px 14px;
     position: relative;
 }
-.commentary li:last-child { border-bottom: none; padding-bottom: 0; }
-.commentary li::before {
-    content: '';
+.cblock-body li::before {
+    content: "–";
     position: absolute;
-    left: 0; top: 20px;
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: #2a2e39;
+    left: 0;
+    color: #4c525e;
 }
-.commentary li.has-label::before { background: #2962ff; }
-.commentary b { color: #2962ff; font-weight: 600; }
 
 .bd-card {
     background: #1e222d; border: 1px solid #2a2e39;
@@ -303,6 +313,20 @@ def delta_str(val, fmt="k"):
         k = round(val)
         return ("+" if k > 0 else "") + f"{k:,}K"
     return ("+" if val > 0 else "") + f"{val:.2f}%"
+
+def metric_card(label, value, value_color, est_str="", bm="", bm_cls="", sub="", highlight=False):
+    """Pure HTML metric card matching rev-card style exactly."""
+    border = "border-color:#2962ff;" if highlight else ""
+    bm_html = f'<div class="badge-{bm_cls.replace("badge-","")}" style="margin-top:6px">{bm}</div>' if bm else ""
+    est_html = f'<div style="font-size:11px;color:#4c525e;font-family:IBM Plex Mono,monospace;margin-top:4px">{est_str}</div>' if est_str else ""
+    sub_html = f'<div style="font-size:11px;color:#4c525e;font-family:IBM Plex Mono,monospace;margin-top:3px">{sub}</div>' if sub else ""
+    return (
+        f'<div class="rev-card" style="{border}padding:16px 18px">'
+        f'<div class="rev-month">{label}</div>'
+        f'<div class="rev-val" style="color:{value_color}">{value}</div>'
+        f'{est_html}{sub_html}{bm_html}'
+        f'</div>'
+    )
 
 # ─────────────────────────────────────────────────────────
 # SIGNAL SCORE
@@ -852,34 +876,40 @@ st.markdown("<div class='section-hdr'>Headline</div>", unsafe_allow_html=True)
 
 c1, c2, c3 = st.columns(3)
 with c1:
-    d_val = delta_str(nfp_mom - CONSENSUS["nfp"] * 1000 / 1000)  # show vs consensus
-    st.metric("Nonfarm Payrolls", fmt_k(nfp_mom),
-              delta=f"vs {CONSENSUS['nfp']}K est",
-              delta_color="normal" if nfp_mom and nfp_mom > 0 else "inverse")
-    st.markdown(f"<span class='{nfp_bm_cls}'>{nfp_bm}</span>", unsafe_allow_html=True)
+    st.markdown(metric_card(
+        "Nonfarm Payrolls", fmt_k(nfp_mom), val_color(nfp_mom),
+        est_str=f"Est: {CONSENSUS['nfp']}K",
+        bm=nfp_bm, bm_cls=nfp_bm_cls, highlight=True), unsafe_allow_html=True)
 with c2:
-    st.metric("Unemployment Rate",
-              f"{urate:.1f}%" if urate else "—",
-              delta=fmt_pct(urate_chg, 2) if urate_chg else None,
-              delta_color="inverse")
-    st.markdown(f"<span class='{urate_bm_cls}'>{urate_bm}</span>", unsafe_allow_html=True)
+    st.markdown(metric_card(
+        "Unemployment Rate",
+        f"{urate:.1f}%" if urate else "—",
+        val_color(urate_chg, invert=True) if urate_chg else "#ffffff",
+        est_str=f"Est: {CONSENSUS['urate']}%",
+        sub=f"MoM: {fmt_pct(urate_chg,2)}" if urate_chg else "",
+        bm=urate_bm, bm_cls=urate_bm_cls), unsafe_allow_html=True)
 with c3:
-    st.metric("Avg Hourly Earnings",
-              fmt_pct(ahe_mom_pct) if ahe_mom_pct else "—",
-              delta=f"YoY: {fmt_pct(ahe_yoy_pct)}" if ahe_yoy_pct else None,
-              delta_color="off")
-    st.markdown(f"<span class='{ahe_bm_cls}'>{ahe_bm}</span>", unsafe_allow_html=True)
+    st.markdown(metric_card(
+        "Avg Hourly Earnings",
+        fmt_pct(ahe_mom_pct) if ahe_mom_pct else "—",
+        val_color(ahe_mom_pct),
+        est_str=f"Est: +{CONSENSUS['ahe_mom']}%",
+        sub=f"YoY: {fmt_pct(ahe_yoy_pct)}" if ahe_yoy_pct else "",
+        bm=ahe_bm, bm_cls=ahe_bm_cls), unsafe_allow_html=True)
 
 c4, c5, c6 = st.columns(3)
 with c4:
-    st.metric("Avg Weekly Hours", f"{hours:.1f} hrs" if hours else "—",
-              delta=fmt_pct(hours_mom) if hours_mom else None, delta_color="normal")
+    st.markdown(metric_card(
+        "Avg Weekly Hours",
+        f"{hours:.1f} hrs" if hours else "—",
+        "#ffffff",
+        sub=f"MoM: {fmt_pct(hours_mom)}" if hours_mom else ""), unsafe_allow_html=True)
 with c5:
-    st.metric("Private Payrolls", fmt_k(private_mom),
-              delta=None, delta_color="normal")
+    st.markdown(metric_card(
+        "Private Payrolls", fmt_k(private_mom), val_color(private_mom)), unsafe_allow_html=True)
 with c6:
-    st.metric("Government Payrolls", fmt_k(govt_mom),
-              delta=None, delta_color="normal")
+    st.markdown(metric_card(
+        "Government Payrolls", fmt_k(govt_mom), val_color(govt_mom)), unsafe_allow_html=True)
 
 # ── SECTION: Revisions (placed under headline) ────────
 st.markdown("<div class='section-hdr'>Prior Months — As Revised Today</div>", unsafe_allow_html=True)
@@ -905,17 +935,28 @@ st.markdown("<div class='section-hdr'>Expanded Labor Market Indicators</div>", u
 ec1, ec2, ec3 = st.columns(3)
 with ec1:
     if u6 is not None:
-        st.metric("U-6 Underemployment", f"{u6:.1f}%",
-                  delta=fmt_pct(u6_chg, 2) if u6_chg else None, delta_color="inverse")
-        st.markdown(f"<span class='{u6_bm_cls}'>{u6_bm}</span>", unsafe_allow_html=True)
+        st.markdown(metric_card(
+            "U-6 Underemployment",
+            f"{u6:.1f}%",
+            val_color(u6_chg, invert=True) if u6_chg else "#ffffff",
+            est_str=f"Est: {CONSENSUS.get('u6',7.9)}%",
+            sub=f"MoM: {fmt_pct(u6_chg,2)}" if u6_chg else "",
+            bm=u6_bm, bm_cls=u6_bm_cls), unsafe_allow_html=True)
 with ec2:
     if lfpr is not None:
-        st.metric("Labor Force Part. Rate", f"{lfpr:.1f}%",
-                  delta=fmt_pct(lfpr_chg, 2) if lfpr_chg else None, delta_color="normal")
-        st.markdown(f"<span class='{lfpr_bm_cls}'>{lfpr_bm}</span>", unsafe_allow_html=True)
+        st.markdown(metric_card(
+            "Labor Force Part. Rate",
+            f"{lfpr:.1f}%",
+            val_color(lfpr_chg) if lfpr_chg else "#ffffff",
+            est_str=f"Est: {CONSENSUS.get('lfpr',62.5)}%",
+            sub=f"MoM: {fmt_pct(lfpr_chg,2)}" if lfpr_chg else "",
+            bm=lfpr_bm, bm_cls=lfpr_bm_cls), unsafe_allow_html=True)
 with ec3:
     if epop_prime is not None:
-        st.metric("Prime-Age EPOP (25–54)", f"{epop_prime:.1f}%")
+        st.markdown(metric_card(
+            "Prime-Age EPOP (25–54)",
+            f"{epop_prime:.1f}%",
+            "#ffffff"), unsafe_allow_html=True)
 
 # ── SECTION: Signal Score ──────────────────────────────
 st.markdown("<div class='section-hdr'>Labor Market Signal Score</div>", unsafe_allow_html=True)
@@ -1021,12 +1062,37 @@ commentary = generate_commentary(
     revisions, CONSENSUS, current_month,
     u6, lfpr, epop_prime
 )
-def make_li(line):
-    has_label = line.strip().startswith("<b>")
-    cls = ' class="has-label"' if has_label else ''
-    return f"<li{cls}>{line}</li>"
-commentary_html = "\n".join(make_li(line) for line in commentary)
-st.markdown(f'<div class="commentary"><ul>{commentary_html}</ul></div>', unsafe_allow_html=True)
+def render_commentary(lines):
+    import re
+    blocks = []
+    current_label = ""
+    current_body = []
+    for line in lines:
+        # Check if line starts with a <b>Label:</b> pattern
+        m = re.match(r"^<b>([^<]+):</b>\s*(.*)", line)
+        if m:
+            if current_body or current_label:
+                blocks.append((current_label, current_body))
+            current_label = m.group(1)
+            rest = m.group(2).strip()
+            current_body = [rest] if rest else []
+        else:
+            current_body.append(line)
+    if current_body or current_label:
+        blocks.append((current_label, current_body))
+
+    html = '<div class="commentary">'
+    for label, body_lines in blocks:
+        html += '<div class="cblock">'
+        if label:
+            html += f'<div class="cblock-label">{label}</div>'
+        body_items = "".join(f"<li>{l}</li>" for l in body_lines if l.strip())
+        html += f'<div class="cblock-body"><ul>{body_items}</ul></div>'
+        html += '</div>'
+    html += '</div>'
+    return html
+
+st.markdown(render_commentary(commentary), unsafe_allow_html=True)
 
 # ── FOOTER ─────────────────────────────────────────────
 st.markdown(
