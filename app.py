@@ -23,138 +23,129 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Inter', sans-serif !important;
-    background-color: #07090c !important;
-    color: #dde8f0 !important;
+    background-color: #131722 !important;
+    color: #d1d4dc !important;
 }
-.stApp { background-color: #07090c; }
+.stApp { background-color: #131722; }
 .block-container { padding-top: 1.2rem !important; padding-bottom: 2rem !important; max-width: 1400px !important; }
 
-/* ── Metric cards ── */
 div[data-testid="metric-container"] {
-    background: #0f1318;
-    border: 1px solid #1c2530;
-    padding: 20px 24px 16px;
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    padding: 16px 18px 14px;
     border-radius: 4px;
 }
 div[data-testid="metric-container"] label {
-    font-size: 11px !important;
+    font-size: 10px !important;
     font-weight: 600 !important;
-    letter-spacing: .12em !important;
-    color: #7a9ab5 !important;
+    letter-spacing: .14em !important;
+    color: #4c525e !important;
     text-transform: uppercase !important;
     font-family: 'IBM Plex Mono', monospace !important;
 }
 div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-    font-size: 2.4rem !important;
+    font-size: 2.2rem !important;
     font-weight: 700 !important;
     font-family: 'Inter', sans-serif !important;
     letter-spacing: -.01em !important;
-    color: #f0f6ff !important;
+    color: #ffffff !important;
     line-height: 1.1 !important;
 }
 div[data-testid="metric-container"] [data-testid="stMetricDelta"] {
-    font-size: 13px !important;
+    font-size: 12px !important;
     font-family: 'IBM Plex Mono', monospace !important;
-    margin-top: 4px !important;
+    color: #4c525e !important;
 }
 
-/* ── Section headers ── */
 .section-hdr {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .28em;
-    color: #4a6a85;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: #d1d4dc;
     text-transform: uppercase;
-    border-bottom: 1px solid #1c2530;
+    border-bottom: 1px solid #2a2e39;
     padding-bottom: 10px;
-    margin: 32px 0 18px;
+    margin: 28px 0 14px;
     font-family: 'IBM Plex Mono', monospace;
 }
 
-/* ── Beat/miss badges ── */
-.badge-beat { color: #00e676; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
-.badge-miss { color: #ff4560; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
-.badge-line { color: #ffab00; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+.badge-beat { color: #26a69a; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+.badge-miss { color: #ef5350; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+.badge-line { color: #f0b429; font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
 
-/* ── Signal score ── */
 .sig-card {
-    background: #0f1318;
-    border: 1px solid #1c2530;
-    padding: 24px 28px;
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    padding: 22px 26px;
     border-radius: 4px;
     height: 100%;
 }
-.sig-score-big { font-size: 64px; font-weight: 700; line-height: 1; font-family: 'Inter', sans-serif; }
-.sig-label { font-size: 15px; font-weight: 700; letter-spacing: .15em; margin-top: 6px; font-family: 'IBM Plex Mono', monospace; }
-.sig-sub { font-size: 10px; color: #4a6a85; margin-top: 4px; letter-spacing: .12em; font-family: 'IBM Plex Mono', monospace; }
-.sig-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.sig-name { font-size: 12px; color: #7a9ab5; width: 120px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
-.sig-bar-bg { background: #1c2530; height: 7px; border-radius: 4px; flex: 1; overflow: hidden; }
-.sig-bar-fill { height: 100%; border-radius: 4px; }
-.sig-pts { font-size: 12px; font-weight: 600; width: 44px; text-align: right; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
-.sig-detail { font-size: 11px; color: #5a7a95; width: 120px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
+.sig-score-big { font-size: 60px; font-weight: 700; line-height: 1; font-family: 'Inter', sans-serif; }
+.sig-label { font-size: 14px; font-weight: 700; letter-spacing: .12em; margin-top: 5px; font-family: 'IBM Plex Mono', monospace; }
+.sig-sub { font-size: 10px; color: #4c525e; margin-top: 3px; letter-spacing: .12em; font-family: 'IBM Plex Mono', monospace; }
+.sig-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.sig-name { font-size: 11px; color: #787b86; width: 110px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
+.sig-bar-bg { background: #2a2e39; height: 5px; border-radius: 3px; flex: 1; overflow: hidden; }
+.sig-bar-fill { height: 100%; border-radius: 3px; }
+.sig-pts { font-size: 11px; font-weight: 600; width: 40px; text-align: right; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
+.sig-detail { font-size: 10px; color: #4c525e; width: 110px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
 
-/* ── Breakdown rows ── */
 .brow {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 0; border-bottom: 1px solid #141c24;
+    padding: 8px 0; border-bottom: 1px solid #1e232f;
 }
 .brow:last-child { border-bottom: none; }
-.bname { font-size: 14px; color: #8aacca; font-family: 'Inter', sans-serif; }
-.bval  { font-size: 17px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+.bname { font-size: 13px; color: #787b86; font-family: 'Inter', sans-serif; }
+.bval  { font-size: 15px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; }
 
-/* ── Revision cards ── */
 .rev-card {
-    background: #0f1318; border: 1px solid #1c2530;
-    padding: 20px 22px; border-radius: 4px;
+    background: #1e222d; border: 1px solid #2a2e39;
+    padding: 16px 18px; border-radius: 4px;
 }
-.rev-month { font-size: 10px; font-weight: 600; letter-spacing: .18em;
-             color: #4a6a85; text-transform: uppercase; margin-bottom: 12px;
+.rev-month { font-size: 10px; font-weight: 600; letter-spacing: .16em;
+             color: #4c525e; text-transform: uppercase; margin-bottom: 10px;
              font-family: 'IBM Plex Mono', monospace; }
-.rev-val   { font-size: 30px; font-weight: 700; margin-bottom: 8px;
+.rev-val   { font-size: 26px; font-weight: 700; margin-bottom: 6px;
              font-family: 'Inter', sans-serif; }
-.rev-prior { font-size: 13px; color: #7a9ab5; margin-bottom: 5px; font-family: 'IBM Plex Mono', monospace; }
-.rev-delta { font-size: 14px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+.rev-prior { font-size: 12px; color: #787b86; margin-bottom: 4px; font-family: 'IBM Plex Mono', monospace; }
+.rev-delta { font-size: 13px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; }
 
-/* ── Commentary ── */
 .commentary {
-    background: #0c1017;
-    border: 1px solid #1c2530;
-    border-left: 3px solid #00bcd4;
-    padding: 28px 36px;
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    border-left: 2px solid #2962ff;
+    padding: 22px 28px;
     border-radius: 0 4px 4px 0;
 }
 .commentary p {
     font-family: 'Inter', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.9;
-    color: #c8daea;
-    margin-bottom: 18px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid #141c24;
+    color: #b2b5be;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #2a2e39;
 }
 .commentary p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.commentary b { color: #00bcd4; font-weight: 600; }
+.commentary b { color: #2962ff; font-weight: 600; }
 
-/* ── NFP banner ── */
-.nfp-banner {
-    background: linear-gradient(90deg, #00bcd4, #0097a7);
-    color: #07090c; font-weight: 700; letter-spacing: .14em;
-    font-size: 13px; text-align: center; padding: 11px;
-    margin-bottom: 20px; text-transform: uppercase; border-radius: 3px;
-    font-family: 'IBM Plex Mono', monospace;
-}
-
-/* ── Breakdown card container ── */
 .bd-card {
-    background: #0f1318; border: 1px solid #1c2530;
-    padding: 22px 26px; border-radius: 4px; height: 100%;
+    background: #1e222d; border: 1px solid #2a2e39;
+    padding: 18px 20px; border-radius: 4px; height: 100%;
 }
 .bd-title {
-    font-size: 10px; font-weight: 700; letter-spacing: .2em; color: #00bcd4;
-    text-transform: uppercase; margin-bottom: 18px;
+    font-size: 10px; font-weight: 700; letter-spacing: .18em; color: #2962ff;
+    text-transform: uppercase; margin-bottom: 14px;
     font-family: 'IBM Plex Mono', monospace;
-    border-bottom: 1px solid #1c2530; padding-bottom: 10px;
+    border-bottom: 1px solid #2a2e39; padding-bottom: 9px;
+}
+
+.nfp-banner {
+    background: #2962ff;
+    color: #ffffff; font-weight: 700; letter-spacing: .12em;
+    font-size: 12px; text-align: center; padding: 10px;
+    margin-bottom: 18px; text-transform: uppercase; border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
 }
 
 #MainMenu, footer, header { visibility: hidden; }
@@ -277,10 +268,10 @@ def fmt_pct(val, decimals=1):
     return ("+" if val > 0 else "") + f"{val:.{decimals}f}%"
 
 def val_color(val, invert=False):
-    if val is None: return "#8899aa"
+    if val is None: return "#4c525e"
     if invert:
-        return "#ff4560" if val > 0 else "#00e676" if val < 0 else "#8899aa"
-    return "#00e676" if val > 0 else "#ff4560" if val < 0 else "#8899aa"
+        return "#ef5350" if val > 0 else "#26a69a" if val < 0 else "#4c525e"
+    return "#26a69a" if val > 0 else "#ef5350" if val < 0 else "#4c525e"
 
 def beat_miss(actual, estimate, higher_is_better=True):
     if actual is None or estimate is None:
@@ -357,10 +348,10 @@ def compute_signal_score(nfp_mom, urate, urate_chg, ahe_mom_pct,
     return total, components
 
 def signal_color(score):
-    if score >= 75: return "#00e676"
-    if score >= 55: return "#ffab00"
-    if score >= 35: return "#ff9100"
-    return "#ff4560"
+    if score >= 75: return "#26a69a"
+    if score >= 55: return "#26a69a"
+    if score >= 35: return "#f0b429"
+    return "#ef5350"
 
 def signal_label(score):
     if score >= 75: return "STRONG"
@@ -372,9 +363,9 @@ def signal_label(score):
 # ─────────────────────────────────────────────────────────
 # PLOTLY HELPERS
 # ─────────────────────────────────────────────────────────
-CHART_BG   = "#0f1318"
-CHART_GRID = "#1c2530"
-CHART_TICK = "#7a9ab5"
+CHART_BG   = "#1e222d"
+CHART_GRID = "#2a2e39"
+CHART_TICK = "#4c525e"
 CHART_H    = 200
 
 def hex_to_rgba(hex_color, alpha=0.12):
@@ -421,7 +412,7 @@ def line_chart(labels, values, color, title=""):
     return fig
 
 def bar_chart(labels, values, title=""):
-    colors = ["#00e676" if v >= 0 else "#ff4560" for v in values]
+    colors = ["#26a69a" if v >= 0 else "#ef5350" for v in values]
     fig = go.Figure()
     fig.add_trace(go.Bar(
         x=labels, y=values,
@@ -743,18 +734,16 @@ if nfp_day:
 col_title, col_date = st.columns([3, 1])
 with col_title:
     st.markdown(
-        "<div style='font-size:30px;font-weight:700;letter-spacing:.08em;"
-        "color:#00bcd4;font-family:Inter,sans-serif;line-height:1'>NFP DASHBOARD</div>",
+        "<div style='font-size:22px;font-weight:700;letter-spacing:.04em;"
+        "color:#ffffff;font-family:Inter,sans-serif;line-height:1'>NFP Dashboard</div>",
         unsafe_allow_html=True)
 with col_date:
     st.markdown(
-        f"<div style='text-align:right;font-size:16px;font-weight:600;font-family:Inter,sans-serif'>"
-        f"{datetime.now().strftime('%B %d, %Y')}</div>"
-        f"<div style='text-align:right;font-size:13px;color:#7a9ab5;font-family:IBM Plex Mono,monospace'>"
-        f"{datetime.now().strftime('%I:%M %p')} ET</div>",
+        f"<div style='text-align:right;font-size:13px;color:#787b86;font-family:IBM Plex Mono,monospace'>"
+        f"{datetime.now().strftime('%B %d, %Y')} &nbsp;·&nbsp; {datetime.now().strftime('%I:%M %p')} ET</div>",
         unsafe_allow_html=True)
 
-st.markdown("<hr style='border-color:#1c2530;margin:14px 0 20px'>", unsafe_allow_html=True)
+st.markdown("<hr style='border-color:#2a2e39;margin:10px 0 18px'>", unsafe_allow_html=True)
 
 # Load data
 with st.spinner("Fetching data from BLS API..."):
@@ -837,10 +826,10 @@ sig_l = signal_label(score)
 
 # Subtitle with signal badge
 st.markdown(
-    f"<div style='margin-bottom:8px;font-size:20px;font-weight:600;color:#a0bdd0;font-family:Inter,sans-serif'>"
+    f"<div style='margin-bottom:8px;font-size:14px;color:#787b86;font-family:Inter,sans-serif'>"
     f"Employment Situation &mdash; {current_month}"
-    f"&nbsp;&nbsp;&nbsp;<span style='padding:4px 14px;border-radius:4px;font-size:12px;font-weight:700;"
-    f"letter-spacing:.12em;background:{sig_c}22;color:{sig_c};border:1px solid {sig_c}44;"
+    f"&nbsp;&nbsp;&nbsp;<span style='padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;"
+    f"letter-spacing:.1em;background:{sig_c}22;color:{sig_c};border:1px solid {sig_c}44;"
     f"font-family:IBM Plex Mono,monospace'>"
     f"SIGNAL: {sig_l} {score}/100</span></div>",
     unsafe_allow_html=True)
@@ -942,7 +931,7 @@ with sc1:
 with sc2:
     if data["nfp"]:
         lbs, vals = chart_pts(data["nfp"], n=13, mom=True)
-        st.plotly_chart(bar_chart(lbs, vals, "Monthly Payroll Change (K)"),
+        st.plotly_chart(bar_chart(lbs, vals, "Monthly Payroll Change (K) — 13 months"),
                         use_container_width=True, config={"displayModeBar": False})
 
 # ── SECTION: Trend Charts ──────────────────────────────
@@ -950,9 +939,9 @@ st.markdown("<div class='section-hdr'>Historical Trends — 13 Months</div>", un
 
 tc1, tc2, tc3 = st.columns(3)
 charts_row1 = [
-    (tc1, data["urate"],  "#ff4560", "Unemployment Rate (%)"),
-    (tc2, data["ahe"],    "#ffab00", "Avg Hourly Earnings ($/hr)"),
-    (tc3, data["lfpr"],   "#00bcd4", "Labor Force Participation Rate (%)"),
+    (tc1, data["urate"],  "#ef5350", "Unemployment Rate (%)"),
+    (tc2, data["ahe"],    "#f0b429", "Avg Hourly Earnings ($/hr)"),
+    (tc3, data["lfpr"],   "#2962ff", "Labor Force Participation Rate (%)"),
 ]
 for col, series, color, title in charts_row1:
     with col:
@@ -965,12 +954,12 @@ tc4, tc5 = st.columns(2)
 with tc4:
     if data["u6"]:
         lbs, vals = chart_pts(data["u6"], n=13)
-        st.plotly_chart(line_chart(lbs, vals, "#ff9100", "U-6 Underemployment Rate (%)"),
+        st.plotly_chart(line_chart(lbs, vals, "#ff9800", "U-6 Underemployment Rate (%)"),
                         use_container_width=True, config={"displayModeBar": False})
 with tc5:
     if data["epop_prime"]:
         lbs, vals = chart_pts(data["epop_prime"], n=13)
-        st.plotly_chart(line_chart(lbs, vals, "#00e676", "Prime-Age EPOP, 25–54 (%)"),
+        st.plotly_chart(line_chart(lbs, vals, "#26a69a", "Prime-Age EPOP, 25–54 (%)"),
                         use_container_width=True, config={"displayModeBar": False})
 
 # ── SECTION: Breakdown ─────────────────────────────────
