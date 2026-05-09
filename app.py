@@ -44,7 +44,7 @@ div[data-testid="metric-container"] label {
     font-family: 'IBM Plex Mono', monospace !important;
 }
 div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-    font-size: 2.2rem !important;
+    font-size: 26px !important;
     font-weight: 700 !important;
     font-family: 'Inter', sans-serif !important;
     letter-spacing: -.01em !important;
@@ -114,19 +114,32 @@ div[data-testid="metric-container"] [data-testid="stMetricDelta"] {
     background: #1e222d;
     border: 1px solid #2a2e39;
     border-left: 2px solid #2962ff;
-    padding: 22px 28px;
+    padding: 20px 26px 20px 22px;
     border-radius: 0 4px 4px 0;
 }
-.commentary p {
+.commentary ul {
+    list-style: none;
+    margin: 0; padding: 0;
+}
+.commentary li {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
-    line-height: 1.9;
+    line-height: 1.75;
     color: #b2b5be;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
+    padding: 12px 0 12px 18px;
     border-bottom: 1px solid #2a2e39;
+    position: relative;
 }
-.commentary p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.commentary li:last-child { border-bottom: none; padding-bottom: 0; }
+.commentary li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 20px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #2a2e39;
+}
+.commentary li.has-label::before { background: #2962ff; }
 .commentary b { color: #2962ff; font-weight: 600; }
 
 .bd-card {
@@ -1008,8 +1021,12 @@ commentary = generate_commentary(
     revisions, CONSENSUS, current_month,
     u6, lfpr, epop_prime
 )
-commentary_html = "\n".join(f"<p>{line}</p>" for line in commentary)
-st.markdown(f'<div class="commentary">{commentary_html}</div>', unsafe_allow_html=True)
+def make_li(line):
+    has_label = line.strip().startswith("<b>")
+    cls = ' class="has-label"' if has_label else ''
+    return f"<li{cls}>{line}</li>"
+commentary_html = "\n".join(make_li(line) for line in commentary)
+st.markdown(f'<div class="commentary"><ul>{commentary_html}</ul></div>', unsafe_allow_html=True)
 
 # ── FOOTER ─────────────────────────────────────────────
 st.markdown(
